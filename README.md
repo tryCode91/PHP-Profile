@@ -1,12 +1,10 @@
 # PHP-Profile
-SQL DB and ChartJS
-Main
-![Main](https://user-images.githubusercontent.com/50046414/193515768-199cc19b-604a-4cb3-aab1-05abeb1c4d4b.png)
 
-![contact](https://user-images.githubusercontent.com/50046414/193515766-097b9f5c-446c-414c-b325-1613812dd9f2.png)
-Contact
-![Add](https://user-images.githubusercontent.com/50046414/193515772-a59e4972-ecad-4d53-a855-b3da52648292.png)
-Mail via PHPMailer
+![image](https://user-images.githubusercontent.com/50046414/194237043-33db35f6-fe33-4751-9e35-5101d6a0650e.png)
+![image](https://user-images.githubusercontent.com/50046414/194237400-52df2a6b-b366-427d-b21f-2597b4118c02.png)
+![image](https://user-images.githubusercontent.com/50046414/194237710-88547f78-81e0-4835-9d8b-7bfcf6e20de3.png)
+![image](https://user-images.githubusercontent.com/50046414/194241776-81858fba-2a54-433d-ad0c-16dcea0e042e.png)
+
 
 Table and vars
 CREATE TABLE [dbo].[Persons](
@@ -19,6 +17,7 @@ CREATE TABLE [dbo].[Persons](
 	[Musictaste] [nvarchar](50) NULL,
 	[Language] [varchar](255) NULL,
 	[Start_time] [datetime] NULL,
+	[Password] [varchar(255) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
