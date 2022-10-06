@@ -1,7 +1,7 @@
 <?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/dbsqlconnection.php"; ?>
 <?php
 require_once $_SERVER['DOCUMENT_ROOT']."/Test/functions.php";
-
+    
     $id=$_GET['id'];
     $firstname = ucfirst($_POST["firstname"]);
     $lastname = ucfirst($_POST["lastname"]);
@@ -21,7 +21,7 @@ require_once $_SERVER['DOCUMENT_ROOT']."/Test/functions.php";
 
     if ($result) {
         echo '1';
-        header('Location:index.php');
+        header('Location:Secure.php');
     }else{
         echo '0';
     }

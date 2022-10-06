@@ -18,12 +18,14 @@ $(".delete").on('click', function(event){
 }); 
 
 $(function(){
+    
     // Initialize DataTables
     $(".custom-table").DataTable({
         mark: true,
         scrollX:true,
         scrollY: true,
     });
+
     //-select rows
     $(".custom-table tr td").on('click', function (e) {
             var id = $(this).parent().data('id');
@@ -102,6 +104,7 @@ $(function(){
         },
         "Please check your input."
     );
+    $("#errorMsg").hide();
     //validate input
     $("#personDetails").validate({
         rules: {
@@ -121,6 +124,12 @@ $(function(){
                 required: true,
                 range:[10,120],
             },
+            password: {
+                required: true,
+            },
+            password_confirm: {
+                equalTo : "#password",
+            },
             Language: 'required',
             musictaste: 'required',
             status: 'required'
@@ -135,7 +144,15 @@ $(function(){
             email:{
                 required:"Please enter your email address.",
                 email: "Please enter a valid email address",
-            } 
+            },
+        },
+        errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+              $(placement).append(error)
+            } else {
+              error.insertAfter(element);
+            }
         },
         submitHandler: function (form) {
             $.ajax({
@@ -143,19 +160,23 @@ $(function(){
                 type: form.method,
                 data: $(form).serialize(),
                 success: function (data) {
-                    console.log('success!', data);
-                    if(data == 1){
-                        $('.errorMessage').html('Email Already Exists').show();
+                    var res = JSON.parse(data);
+                    console.log(res);
+                    //user does exist redirect to login page
+                    if(data['userExists'] == false){
+                        location.href='FE_login.php';
+                        console.log("false");
+                    //user does not exist show error msg
                     }else{
-                        if(data == 0){
-                            $('.errorMessage').hide();
-                            location.href='index.php';
-                        }
+                            var errorMessage = res['msg'];
+                            $("#errorMsg").html(errorMessage);
+                            $("#errorMsg").show();
                     }
                 }
             });
         }
     });
+    
     //contact
     $("#contactDetails").validate({
         name: 'required',
@@ -177,4 +198,31 @@ $(function(){
             })
         }
     })
+});
+
+//register
+$("#show_hide_password a").on('click', function(event) {
+    event.preventDefault();
+    if($('#show_hide_password input').attr("type") == "text"){
+        $('#show_hide_password input').attr('type', 'password');
+        $('#show_hide_password i').addClass( "fa-eye-slash" );
+        $('#show_hide_password i').removeClass( "fa-eye" );
+    }else if($('#show_hide_password input').attr("type") == "password"){
+        $('#show_hide_password input').attr('type', 'text');
+        $('#show_hide_password i').removeClass( "fa-eye-slash" );
+        $('#show_hide_password i').addClass( "fa-eye" );
+    }
+});
+
+$("#show_hide_password_confirm a").on('click', function(event) {
+    event.preventDefault();
+    if($('#show_hide_password_confirm input').attr("type") == "text"){
+        $('#show_hide_password_confirm input').attr('type', 'password');
+        $('#show_hide_password_confirm i').addClass( "fa-eye-slash" );
+        $('#show_hide_password_confirm i').removeClass( "fa-eye" );
+    }else if($('#show_hide_password_confirm input').attr("type") == "password"){
+        $('#show_hide_password_confirm input').attr('type', 'text');
+        $('#show_hide_password_confirm i').removeClass( "fa-eye-slash" );
+        $('#show_hide_password_confirm i').addClass( "fa-eye" );
+    }
 });

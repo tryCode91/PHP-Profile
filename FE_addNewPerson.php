@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
     <title>Add Person</title>
 </head>
 <body class="form">
@@ -36,6 +37,34 @@
                         <div class="form-group">
                             <label for="age">Age *</label>
                             <input type="text" id="age" name="age" class="form-control" placeholder="Please enter your Age" required/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                                <div class="input-group" id="show_hide_password">
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Please enter your password" required data-error="#errNm1">
+                                    <div class="input-group-addon border text-align-center" style="padding: 6px; height: 38px; width: 10%;">
+                                    <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                            <div class="errorTxt">
+                                <span id="errNm1"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="password_confirm">Confirm Password *</label>
+                            <div class="input-group" id="show_hide_password_confirm">                      
+                                <input type="password" id="password_confirm" name="password_confirm" class="form-control" placeholder="Please confirm your password" required data-error="#errNm2">                     
+                                <div class="input-group-addon border text-align-center" style="padding: 6px; height: 38px; width: 10%;">
+                                    <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                            <div class="errorTxt">
+                                <span id="errNm2"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -85,7 +114,11 @@
                         </div>
                     </div>
                 </form>
-                <div style="display:none; font-weight:bold; color:red;" class="ml-1 mt-1 errorMessage"></div>
+                <div class="col-md-3 mt-3 justify-content-center">
+                    <div class="row">
+                        <div id="errorMsg" class="alert alert-danger" role="alert"></div>
+                    </div>
+                </div>
             </div>
         </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>     

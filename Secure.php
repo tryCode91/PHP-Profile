@@ -1,4 +1,11 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/BE_showPerson.php";?>    
+<?php
+session_start();
+if(empty($_SESSION['person_id'])){
+   header('Location: index.php');    
+} else { $_SESSION['userIsLoggedIn'] = true?>
+
+<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/BE_showPerson.php"; 
+?>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,14 +25,19 @@
 <body class="bg-light">
 <?php include "header.php"?>
     <div class="container mt-5 mb-5">
-
-        <section class="row no-gutters align-items-center mb-5">
+    <section class="row no-gutters align-items-center mb-5">
             <div class="col-12 text-center d-flex">
                 <img class="img-fluid of" src="images/banner.jpg" style="width:1200px;height:200px;">
-                <h1 class="w-100 position-absolute text-light mt-5 mr-5 pr-5 display-2 lead">Welcome</h1>
+                <h1 class="w-100 position-absolute text-light mt-5 mr-5 pr-5 display-2 lead">Welcome <?php echo $_SESSION['name'];?></h1>
             </div>
         </section>
-
+        <div class="col-md-12 text-center">
+            <div>You can now <strong><em>edit, add and delete</em></strong> new People. To <strong><em>edit</em></strong><br> current value press the row you wish to change.<br></div>
+        </div>
+        <div class="row mb-2 mt-4 mr-1 float-right">
+            <button class="btn mb-2 text-light buttonADD" style="background-color: 
+    #4542f5;">Add Person</button>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover custom-table">
                 <thead class="thead-dark">
@@ -37,6 +49,7 @@
                         <th>Musictaste</th>
                         <th>Email</th>
                         <th>Start Date</th>
+                        <th>Change</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,18 +61,48 @@
                                 $x_value['Status'] = "No";
                             }
                     ?>
-                        <tr>
+                        <tr data-id="<?php echo $x_value['ID'];?>">
                             <td style="width:12.5%"><?php echo $x_value['Name']; ?></td>
                             <td style="width:12.5%"><?php echo $x_value['Age'];?></td>
                             <td style="width:12.5%"><?php echo $x_value['Language'];?></td>
                             <td style="width:12.5%"><?php echo $x_value['Status'];?></td>
                             <td style="width:12.5%"><?php echo $x_value['Musictaste'];?></td>              
                             <td style="width:16.5%"><?php echo $x_value['Email']; ?></td>
-                            <td style="width:12.5%"><?php echo $x_value['Start_time']; ?></td>               
+                            <td style="width:12.5%"><?php echo $x_value['Start_time']; ?></td>
+                            <td style="width:8.5%">
+
+                                <button type="button" data-toggle="modal" data-target="#showModal" data-id="<?php echo $x_value['ID'];?>" class="btn btn-danger text-dark delete btn-delete">Del</button>
+                                
+                                <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabel">Confirm</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete this person?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button"  class="btn modalDelete" style="background-color: #e1a356">Confirm</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>               
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
+        </div>
+        <div class="row d-flex mt-3">
+            <button id="btnMusic" type="button" class="btn text-light ml-3" style="background-color: 
+    #4542f5;">MusicChart</button>
+            <button id="btnLanguage" type="button" class="btn text-light ml-3" style="background-color: 
+    #4542f5;">LanguageChart</button>
         </div>
         <div class="row d-flex mt-5 ml-5">
             <canvas id="musicChart" width="500" height="500"></canvas>
@@ -74,3 +117,5 @@
 <script src="chart.js"></script>
 </body>
 </html>
+<?php } ?> <!-- End if lese! -->
+ 
