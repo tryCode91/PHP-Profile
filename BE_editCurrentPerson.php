@@ -1,8 +1,9 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/dbsqlconnection.php"; ?>
-<?php
-require_once $_SERVER['DOCUMENT_ROOT']."/Test/functions.php";
-    
-    $id=$_GET['id'];
+<?php require_once $_SERVER['DOCUMENT_ROOT']."/v2test/dbsqlconnection.php"; 
+
+    session_start();
+
+    $id= $_GET['id'];
+
     $firstname = ucfirst($_POST["firstname"]);
     $lastname = ucfirst($_POST["lastname"]);
     $email = $_POST["email"];
@@ -15,13 +16,12 @@ require_once $_SERVER['DOCUMENT_ROOT']."/Test/functions.php";
     }else{
         $status = 0;
     }
-    
-    $sql = "update Persons set Firstname='$firstname', Lastname='$lastname', Email='$email', Musictaste='$musictaste', Age=$age, Status='$status', Language='$language' where id=$id";
+
+     $sql = "update Persons set Firstname='$firstname', Lastname='$lastname', Email='$email', Musictaste='$musictaste', Age=$age, Status='$status', Language='$language' where id=$id";
     $result = sqlsrv_query($conn,$sql);
 
     if ($result) {
         echo '1';
-        header('Location:Secure.php');
     }else{
         echo '0';
     }

@@ -1,5 +1,5 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/dbsqlconnection.php"; ?>
-<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/functions.php";
+<?php require_once $_SERVER['DOCUMENT_ROOT']."/v2Test/dbsqlconnection.php";
+
 
 if(isset($_POST['dataId'])){
     $id=$_POST['dataId'];

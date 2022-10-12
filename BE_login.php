@@ -1,5 +1,5 @@
 <?php 
-require_once $_SERVER['DOCUMENT_ROOT']."/Test/dbsqlconnection.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/v2Test/dbsqlconnection.php";
 
 
 session_start();
@@ -27,8 +27,9 @@ if(count($error)>0){
 $sql="select * from Persons where Email = '".$_POST['email']."'";
 $result = sqlsrv_query($conn,$sql);
 $row=sqlsrv_fetch_array($result);
+
 if($row>0){
-   //password_verify avkrypterar lösenordet i databasen till en sträng och kollar om den inpassade strängen matchar.
+        
     if(!password_verify($_POST['password'], $row['Password'])) {
             $error[]="password is not valid";
             $resp['msg'] = $error;
@@ -36,10 +37,9 @@ if($row>0){
             echo json_encode($resp);
             exit;
     }
-        
+
         $_SESSION['person_id']=$row['ID'];
         $_SESSION['name']=$row['Firstname'];
-        $resp['redirect']="Secure.php";
         $resp['status']=true;
         echo json_encode($resp);
         exit;

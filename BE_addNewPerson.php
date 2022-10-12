@@ -1,9 +1,7 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/dbsqlconnection.php"; 
-
+<?php require_once $_SERVER['DOCUMENT_ROOT']."/v2Test/dbsqlconnection.php"; 
 session_start();
 $session = array();
-require_once $_SERVER['DOCUMENT_ROOT']."/Test/functions.php";      
-    
+     
     $firstname = ucfirst($_POST["firstname"]);
     $lastname = ucfirst($_POST["lastname"]);
     $email = $_POST["email"];
@@ -15,7 +13,7 @@ require_once $_SERVER['DOCUMENT_ROOT']."/Test/functions.php";
     
     if($status == "Active"){
         $status = 1;
-    }else{
+    }else if($status =="Inactive"){
         $status = 0;     
     }
     $sql = "select Email from Persons where Email='$email'";
@@ -25,10 +23,20 @@ require_once $_SERVER['DOCUMENT_ROOT']."/Test/functions.php";
         $session['msg'] = "Email Already Exists";
         echo json_encode($session);
     }else{
-        $sql = "INSERT INTO Persons (FirstName, LastName, Email, Age, Musictaste, Status, language, Password) VALUES ('$firstname', '$lastname','$email', '$age','$musictaste','$status','$language','$password')";
-        $result=sqlsrv_query($conn,$sql);
-        $session['userExists'] = false;
-        echo json_encode($session);
+        
+        if(isset($_SESSION['person_id'])){
+            $sql = "INSERT INTO Persons (FirstName, LastName, Email, Age, Musictaste, Status, language, Password) VALUES ('$firstname', '$lastname','$email', '$age','$musictaste',$status,'$language','$password')";
+            $result=sqlsrv_query($conn,$sql);
+            $session['userExists'] = false;
+            $session['location']=true;//FE_secure.php;
+            echo json_encode($session);
+        }else{
+            $sql = "INSERT INTO Persons (FirstName, LastName, Email, Age, Musictaste, Status, language, Password) VALUES ('$firstname', '$lastname','$email', '$age','$musictaste',$status,'$language','$password')";
+            $result=sqlsrv_query($conn,$sql);
+            $session['userExists'] = false;
+            $session['location']=false;//FE_login.php;
+            echo json_encode($session);
+        }
     }
  
 ?>

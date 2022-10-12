@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,13 +11,15 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css">
   <title>Login</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js" integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
 </head>
 <body>
   <div class="vh-auto gradient-custom">
     <div class="container py-5 h-100">
     <div id="template-bg-1">
-    <div
-        class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
         <div class="card p-4 text-light bg-dark mb-5 text-center">
             <div class="card-header">
                 <h3>Sign In</h3>
@@ -38,29 +41,23 @@
                         <input type="password" class="form-control"
                             placeholder="password" name="password">
                     </div>
-
                     <div class="form-group mt-3">
                         <button id="login" value="Login"
                             class="btn bg-secondary float-end text-white w-100" type="submit">Login</button>
-                    </div>
-                    
+                    </div>        
                 </form>
 			</div>
             <div class="card-footer">
                 <div class="d-flex justify-content-center">
-                    <div class="text-primary">Don't have an account? <a href="FE_addNewPerson.php">Register here</a></div>
+                    <div class="text-primary">Don't have an account? <a href="FE_register.php">Register here</a></div>
                 </div>
             </div>
             <div id="errorMessage" class="alert alert-warning" role="alert"></div>
-        
         </div>
     </div>
 </div>
-    </div>
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js" integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
+</div>
+</div>
   <script src="jQueryLogin.js"></script>
 </body>
 </html>

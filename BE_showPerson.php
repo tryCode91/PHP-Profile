@@ -1,5 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/dbsqlconnection.php"; ?>
-<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/functions.php";
+<?php require_once $_SERVER['DOCUMENT_ROOT']."/v2Test/dbsqlconnection.php";
 
 $sql ="select ID, Firstname, Lastname, Age, Email, Status, Musictaste, Language, format(Start_time, 'yyyy-MM-dd') as Start_time from Persons order by ID";
 
@@ -12,7 +11,7 @@ $result_arr = array();
 while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
 	$result_arr[] = array(
 		'ID'=>$row['ID'], 
-		'Name'=>formatName($row['Firstname'])." ".formatName($row['Lastname']), 
+		'Name'=>ucfirst($row['Firstname'])." ".ucfirst($row['Lastname']), 
 		'Email'=>$row['Email'], 
 		'Age'=>$row['Age'], 
 		'Status'=>$row['Status'],

@@ -1,27 +1,32 @@
-<!-- sql som hämtar användare med inpassat id 
-visar upp det i ett html formulär i princip samma som addNewPerson.php  -->
-<!-- men värden för person är ifyllt. Efter formuläret skickas skapas en ny sql insert i (ajax call) databasen och sidan skickas till index.  -->
-<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/dbsqlconnection.php"; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT']."/v2Test/dbsqlconnection.php"; session_start();?>
 <?php
-$id=$_GET['id'];
-$sql = "select Firstname, Lastname, Age, Email, Musictaste, Status from Persons WHERE id='".$_GET['id']."'";
-$result=sqlsrv_query($conn,$sql);
+     $id=$_GET['id'];
+    $sql = "select Firstname, Lastname, Age, Email, Musictaste, Status from Persons WHERE id='".$_GET['id']."'";
+    $result=sqlsrv_query($conn,$sql);
+    $row=sqlsrv_fetch_array($result)
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta http-equiv="content-type" content="text/html" charset="ISO-8859-1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Edit</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>  
 </head>
-<body>
-    <?php 
-        while($row=sqlsrv_fetch_array($result)){
-    ?>
+<body class="gradient-secure">
+<?php include 'header.php';?>
+    <?php include 'sidebar.php';?>
+
         <div class="container">
             <div class="row border mt-5 bg-light col-xl-8 offset-xl-2 py-5 rounded" id="dynamicValue">
                     <form method="POST" action="BE_editCurrentPerson.php?id=<?php echo $_GET['id'];?>" id="editForm" class="row g-3">
@@ -95,12 +100,10 @@ $result=sqlsrv_query($conn,$sql);
                 <div style="display:none; font-weight:bold; color:red;" class="ml-1 mt-1 errorMessage"></div>
             </div>
         </div>
-    <?php } ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <!--sidebar end-->
+</div>
+</div>
+</div>
 <script src="jQuery.js"></script>
 </body>
 </html>

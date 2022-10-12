@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT']."/Test/BE_showPerson.php";?>    
+<?php require_once $_SERVER['DOCUMENT_ROOT']."/v2Test/BE_showPerson.php";?>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +22,6 @@
         <section class="row no-gutters align-items-center mb-5">
             <div class="col-12 text-center d-flex">
                 <img class="img-fluid of" src="images/banner.jpg" style="width:1200px;height:200px;">
-                <h1 class="w-100 position-absolute text-light mt-5 mr-5 pr-5 display-2 lead">Welcome</h1>
             </div>
         </section>
 
@@ -61,10 +60,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="row d-flex mt-5 ml-5">
-            <canvas id="musicChart" width="500" height="500"></canvas>
-            <canvas id="LanguageChart" width="500" height="500"></canvas>
+
+        <div class="row text-center mt-5">
+            <div id="loginMessage" class="col-md-6 alert alert-info"></div>
         </div>
+
     </div>
 <script src="jQuery.js"></script>
 <script type="text/javascript">

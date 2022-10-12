@@ -1,8 +1,7 @@
 //modal outside of dom ready.
-$(".delete").on('click', function(event){
+$(".delete").on('click', function(){
     id=$(this).data("id");
     $(".modalDelete").on('click',function(e){
-        e.preventDefault();
             $.ajax({
                 url:"BE_deletePerson.php",
                 type:"POST",
@@ -29,15 +28,15 @@ $(function(){
     //-select rows
     $(".custom-table tr td").on('click', function (e) {
             var id = $(this).parent().data('id');
-            console.log(id);
             if($(this).is("td:last-child")) {
-                // $(".delete").
+                
             }else {
                 if(typeof id !== 'undefined'){
                     location.href = "FE_editCurrentPerson.php?id=" + id;
                 }
             }
     });
+
     $("#editForm").validate({
         rules: {
             firstname: {
@@ -68,20 +67,23 @@ $(function(){
             },
             email: {required: "Please enter a valid email address", email: "Please enter a valid email address"}
         },
-        submitHandler: function (form) {
-            id=$(".userID").attr("id").val();
+        submitHandler: function (form,e) {
+            var id = $(".userID").attr('id');
+            console.log(id);
+            e.preventDefault();
             $.ajax({
-                url: "BE_editCurrentPerson.php?id="+id,
+                url: "BE_editCurrentPerson.php?id=" + id,
                 type: form.method,
                 data: $(form).serialize(),
                 success: function (data) {
-                    if($.trim(data) === 1){
-                        console.log("success!", data);
-                        location.href='./';
+                    console.log(data);
+                    // var res = JSON.parse(data);
+                    if(data == 1){
+                        console.log("data");
+                        location.href="table.php";
                     }else{
-            
-                            console.log("something went wrong");
-                      
+                        $("#errorMessage").html("Id is not defined?");
+                        $("#errorMessage").show();
                     }
                 }
             });
@@ -92,9 +94,11 @@ $(function(){
     $(".buttonADD").on('click',function(){
         location.href="FE_addNewPerson.php";
     });
+
     $("#btnCancel").on('click',function(){
         location.href="index.php";
     });
+
     //validator method
     $.validator.addMethod(
         "regex",
@@ -104,7 +108,9 @@ $(function(){
         },
         "Please check your input."
     );
+
     $("#errorMsg").hide();
+
     //validate input
     $("#personDetails").validate({
         rules: {
@@ -162,15 +168,20 @@ $(function(){
                 success: function (data) {
                     var res = JSON.parse(data);
                     console.log(res);
-                    //user does exist redirect to login page
-                    if(data['userExists'] == false){
-                        location.href='FE_login.php';
-                        console.log("false");
-                    //user does not exist show error msg
+                    if(res['userExists'] == false){
+                        if(res['location'] == true){
+                            console.log("userexists false location true")
+                            location.href='FE_secure.php';
+                        }else{
+                            location.href='FE_login.php';
+                        }
                     }else{
-                            var errorMessage = res['msg'];
-                            $("#errorMsg").html(errorMessage);
-                            $("#errorMsg").show();
+                        if(res['userExists'] == true){
+                                console.log("userexists true location false")   
+                                var errorMessage = res['msg'];
+                                $("#errorMsg").html(errorMessage);
+                                $("#errorMsg").show();
+                            }
                     }
                 }
             });
@@ -198,7 +209,7 @@ $(function(){
             })
         }
     })
-});
+
 
 //register
 $("#show_hide_password a").on('click', function(event) {
@@ -225,4 +236,21 @@ $("#show_hide_password_confirm a").on('click', function(event) {
         $('#show_hide_password_confirm i').removeClass( "fa-eye-slash" );
         $('#show_hide_password_confirm i').addClass( "fa-eye" );
     }
+});
+
+//sidebar
+'use strict'
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+  new bootstrap.Tooltip(tooltipTriggerEl)
+});
+
+$("#loginMessage").hide();
+
+$(".custom-table tr").on('click', function(e){
+    $("#loginMessage").html("You need to be a registered user to alter values in the table");
+    $("#loginMessage").fadeIn(1000);
+    $("#loginMessage").fadeOut(3500);
+});
+
 });

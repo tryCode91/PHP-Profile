@@ -36,24 +36,22 @@ function makeMusicChart(){
                     text: 'Music variation',
                     font: {
                         size: 22,
+                    },
+                    dataLabels:{
+                        color:'#ffffff'
                     }
                 }
             }
         }
     };
     const ctx = document.getElementById('musicChart').getContext('2d');
-    
+  
     const myChart = new Chart(
         document.getElementById('musicChart'),
         config
         );
-        
 
 }
-
-$("#btnMusic").on('click',function(){
-    makeMusicChart();
-});
 
 function makeLangChart(){
 
@@ -108,6 +106,5 @@ const dataLang = {
         configLang
     );
 }
-$("#btnLanguage").on('click', function(){
-    makeLangChart();
-})
+makeMusicChart();
+makeLangChart();

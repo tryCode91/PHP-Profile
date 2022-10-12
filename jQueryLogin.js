@@ -1,18 +1,20 @@
 $(function(){
     $("#errorMessage").hide();
+
     $('#login').on('click', function(event){
         let self=$(this);
         event.preventDefault();
         self.prop('disabled',true);
-        var data = $('#login-form').serialize();
+        var data = $("#login-form").serialize();
         $.ajax({
             url:'BE_login.php',
             type:'post',
             dataType:'json',
             data: data,
         }).done(function(res){       
-            if(res['status']){ 
-                location.href="Secure.php";
+            console.log(res);
+            if(res['status'] == true){ 
+                location.href="FE_secure.php";
             }else{     
                 var errorMessage="";
                 $.each(res['msg'], function(index, message) {
@@ -30,7 +32,4 @@ $(function(){
         });
     });
 });
-//Snygga till och Gör funk till login
-function submitForm(){
 
-}
