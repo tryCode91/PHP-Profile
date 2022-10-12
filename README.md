@@ -5,6 +5,8 @@
 ![image](https://user-images.githubusercontent.com/50046414/194237710-88547f78-81e0-4835-9d8b-7bfcf6e20de3.png)
 ![image](https://user-images.githubusercontent.com/50046414/194241776-81858fba-2a54-433d-ad0c-16dcea0e042e.png)
 
+v3
+![image](https://user-images.githubusercontent.com/50046414/195370204-5c79471e-7dc9-4829-a05a-47e1f7aed7f3.png)
 
 Table and vars
 CREATE TABLE [dbo].[Persons](
